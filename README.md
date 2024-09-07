@@ -5,7 +5,7 @@
 
 # MV-22B Load Plan
 ## 3D Modeling
-Given cargo dimensions and weights, MV-22B load plans can be created by scanning the cargos. Here, cargos were scanned using iPhone 13 lidar with Polycam application, which coverts the collected data into CAD file. 3D modeling software such as Sketchup can be used to visualize the CAD files in 3D. This allows you to test out optimal distribution of cargos and determine the number of aircraft required to transport given cargos without physically moving them. This reduces the workload of the crewchiefs and increases the accuracy of the load plans.
+Given cargo dimensions and weights, MV-22B load plans can be created by scanning the cargos. Here, cargos were scanned using iPhone 13 lidar with Polycam application, which coverts the collected data into CAD file. 3D modeling software such as Sketchup can be used to visualize the CAD files in 3D. This allows you to test out optimal distribution of cargos and determine the number of aircraft required to transport given cargos without physically moving them, reducing the workload of the crewchiefs while increasing the accuracy of the load plans.
 
 ![3D Load Plans](https://github.com/user-attachments/assets/322288d6-e563-4a50-87a1-6edb19f58ca8)
 
