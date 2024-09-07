@@ -16,13 +16,13 @@ The load planning process can also be automated using D-Wave 3D Bin Packing appl
 Reference the source document for detail.
 Source: https://github.com/dwave-examples/3d-bin-packing
 
-Three files are edited to include the center of gravity constraints.
+Three files are edited:
 1. Input file includes weights
 2. utils file read_instance includes case weights
-3. packing3d file includes an additional objective to minimize the longitudinal center of gravity. Center of gravity is set to x=0 in this case. 
+3. packing3d file includes an additional objective to minimize deviation of the longitudinal center of gravity from the optimal center of gravity that provides the most stability and efficiency, which is assumed to be x=0.
+
+Due to the relatively small cargo capacity of an MV-22B, the center of gravity mostly stays within the lower and upper limits of longitudinal center of gravity. 
 
 Below is the demonstration of D-Wave 3D Bin Packing application with typical cargos of MV-22B, such as JMICs, Pelican cases, and toolboxex.
 
 <img width="825" alt="D_wave_Demo" src="https://github.com/user-attachments/assets/99043f92-45f6-4b73-a1c9-61c8e1ae0af4">
-
-Further improvement is needed for an arbitrary center of gravity.
