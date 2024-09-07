@@ -21,8 +21,8 @@ Three files are edited:
 2. utils file read_instance includes case weights
 3. packing3d file includes an additional objective to minimize deviation of the longitudinal center of gravity from the optimal center of gravity that provides the most stability and efficiency, which is assumed to be x=0.
 
-Due to the relatively small cargo capacity of an MV-22B, the center of gravity mostly stays within the lower and upper limits of longitudinal center of gravity. 
+Due to the relatively small cargo capacity of an MV-22B, the center of gravity mostly stays within the lower and upper limits of longitudinal center of gravity, but these constraints can be added in extreme cases.
 
-Below is the demonstration of D-Wave 3D Bin Packing application with typical cargos of MV-22B, such as JMICs, Pelican cases, and toolboxex.
+Below is the demonstration of D-Wave 3D Bin Packing application with typical cargos transported by MV-22B, such as JMICs, Pelican cases, and toolboxex. This model does not include troops or personnel, which will have to be modeled separately with different constraints based on the positions of the seats.
 
 <img width="825" alt="D_wave_Demo" src="https://github.com/user-attachments/assets/99043f92-45f6-4b73-a1c9-61c8e1ae0af4">
