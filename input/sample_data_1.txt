@@ -1,6 +1,5 @@
 # Max num of bins : 1
 # Bin dimensions (L * W * H): 200 68 66
-# Bin optimal center of gravity: 50
 
   case_id    quantity    length    width    height    wieght  
 ---------  ----------  --------  -------  --------  --------
