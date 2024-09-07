@@ -141,7 +141,8 @@ def plot_cuboids(sample: dimod.SampleSet, vars: "Variables",
             for the 3D bin packing problem.
         cases: Instance of ``Cases``, representing cuboid items packed into containers.
         bins: Instance of ``Bins``, representing containers to pack cases into.
-        effective_dimensions: List of case dimensions based on orientations of cases.
+        
+        _dimensions: List of case dimensions based on orientations of cases.
 
     Returns:
         ``plotly.graph_objects.Figure`` with all cases packed according to CQM results.
@@ -195,8 +196,8 @@ def read_instance(instance_path: str) -> dict:
 
     """
 
-    data = {"num_bins": 0, "bin_dimensions": [], "quantity": [], "case_ids": [],
-            "case_length": [], "case_width": [], "case_height": []}
+    data = {"num_bins": 0, "bin_dimensions": [], "optimal_CG": 0, "quantity": [], "case_ids": [],
+            "case_length": [], "case_width": [], "case_height": [], "case_weight": []}
 
     with open(instance_path) as f:
         for i, line in enumerate(f):
@@ -204,7 +205,9 @@ def read_instance(instance_path: str) -> dict:
                 data["num_bins"] = int(line.split()[-1])
             elif i == 1:
                 data["bin_dimensions"] = [int(i) for i in line.split()[-3:]]
-            elif 2 <= i <= 4:
+            elif i == 2:
+                data["optimal_CG"] = int(line.split()[-1])
+            elif 3 <= i <= 5:
                 continue
             else:
                 case_info = list(map(int, line.split()))
@@ -213,6 +216,7 @@ def read_instance(instance_path: str) -> dict:
                 data["case_length"].append(case_info[2])
                 data["case_width"].append(case_info[3])
                 data["case_height"].append(case_info[4])
+                data["case_weight"].append(case_info[5])
 
         return data
 
