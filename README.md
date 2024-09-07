@@ -12,7 +12,7 @@ Given cargo dimensions and weights, MV-22B load plans can be created by scanning
 
 
 ## D-Wave 3D Bin Packing
-The load planning process can also be automated using D-Wave 3D Bin Packing application which uses hybrid quantum-classical framework to optimize the problem.
+The load planning process can also be automated using D-Wave 3D Bin Packing application which uses hybrid quantum-classical framework to optimize the solution.
 Reference the source document for detail.
 Source: https://github.com/dwave-examples/3d-bin-packing
 
