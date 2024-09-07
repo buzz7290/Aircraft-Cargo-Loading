@@ -205,9 +205,7 @@ def read_instance(instance_path: str) -> dict:
                 data["num_bins"] = int(line.split()[-1])
             elif i == 1:
                 data["bin_dimensions"] = [int(i) for i in line.split()[-3:]]
-            elif i == 2:
-                data["optimal_CG"] = int(line.split()[-1])
-            elif 3 <= i <= 5:
+            elif 2 <= i <= 4:
                 continue
             else:
                 case_info = list(map(int, line.split()))
