@@ -38,6 +38,7 @@ class Cases:
         self.length = np.repeat(data["case_length"], data["quantity"])
         self.width = np.repeat(data["case_width"], data["quantity"])
         self.height = np.repeat(data["case_height"], data["quantity"])
+        self.weight = np.repeat(data["case_weight"], data["quantity"])
         print(f'Number of cases: {self.num_cases}')
 
 
@@ -55,6 +56,7 @@ class Bins:
         self.width = data["bin_dimensions"][1]
         self.height = data["bin_dimensions"][2]
         self.num_bins = data["num_bins"]
+        self.optimal_CG = data["optimal_CG"]
         self.lowest_num_bin = int(np.ceil(
             np.sum(cases.length * cases.width * cases.height) / (
                     self.length * self.width * self.height)))
@@ -233,10 +235,13 @@ def _add_boundary_constraints(cqm: ConstrainedQuadraticModel, vars: Variables,
 def _define_objective(cqm: ConstrainedQuadraticModel, vars: Variables,
                       bins: Bins, cases: Cases, effective_dimensions: list):
     num_cases = cases.num_cases
+    case_weights = cases.weight
     num_bins = bins.num_bins
+    optimal_CG = bins.optimal_CG
     lowest_num_bin = bins.lowest_num_bin
     dx, dy, dz = effective_dimensions
-
+    long_CG_deviations=[0]*num_bins
+        
     # First term of objective: minimize average height of cases
     first_obj_term = quicksum(
         vars.z[i] + dz[i] for i in range(num_cases)) / num_cases
@@ -250,11 +255,23 @@ def _define_objective(cqm: ConstrainedQuadraticModel, vars: Variables,
     first_obj_coefficient = 1
     second_obj_coefficient = 1
     third_obj_coefficient = bins.height
+    fourth_obj_coefficient = 1/num_bins
+    
+    # Fourth term of the objective: minimize the lateral CG shift
+    moment = 0
+    total_weight_in_bin = 0
+    for j in range (num_bins):
+        for i in range (num_cases):
+            moment += (vars.x[i]+dx[i]/2)*case_weights[i]*vars.bin_loc[i,j]
+            total_weight_in_bin += case_weights[i]*vars.bin_loc[i,j]
+        long_CG_deviations[j]= moment/total_weight_in_bin-optimal_CG
+    fourth_obj_term = quicksum(long_CG_deviations[j] for j in range(num_bins))
+    
     cqm.set_objective(first_obj_coefficient * first_obj_term +
                       second_obj_coefficient * second_obj_term +
-                      third_obj_coefficient * third_obj_term)
-
-
+                      third_obj_coefficient * third_obj_term + 
+                      fourth_obj_coefficient * fourth_obj_term)
+                      
 def build_cqm(vars: Variables, bins: Bins,
               cases: Cases) -> Tuple[ConstrainedQuadraticModel, list]:
     """Builds the CQM model from the problem variables and data.
